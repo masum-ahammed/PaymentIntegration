@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Web", "User.Web\User.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Payment", "User.Payment\User.Payment.csproj", "{77CDBC10-5BEC-4415-952A-B9C042D02BA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Model", "Data.Model\Data.Model.csproj", "{C56C9625-D035-4834-93EC-55D67CE46FD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{77CDBC10-5BEC-4415-952A-B9C042D02BA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77CDBC10-5BEC-4415-952A-B9C042D02BA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77CDBC10-5BEC-4415-952A-B9C042D02BA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C56C9625-D035-4834-93EC-55D67CE46FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C56C9625-D035-4834-93EC-55D67CE46FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C56C9625-D035-4834-93EC-55D67CE46FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C56C9625-D035-4834-93EC-55D67CE46FD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -55,16 +55,16 @@ namespace User.Web.Migrations
             var paypalPaymentMethod = new PaymentMethod() { Name = "PayPal" };
             var localBankPaymentMethod = new PaymentMethod() { Name = "Local Bank" };
             var usBankPaymentMethod = new PaymentMethod() { Name = "US Bank" };
-            context.PaymentMethods.AddOrUpdate(paypalPaymentMethod);
-            context.PaymentMethods.AddOrUpdate(localBankPaymentMethod);
-            context.PaymentMethods.AddOrUpdate(usBankPaymentMethod);
+            context.PaymentMethod.AddOrUpdate(paypalPaymentMethod);
+            context.PaymentMethod.AddOrUpdate(localBankPaymentMethod);
+            context.PaymentMethod.AddOrUpdate(usBankPaymentMethod);
             var adminUser = AddAdminUserAndRole(context);
            var player1User = AddPlayerUserAndRole(context, "player1");
            var player2User = AddPlayerUserAndRole(context, "player2");
-            context.UserPaymentMethods.AddOrUpdate(new UserPaymentMethod() { PaymentMethodId = paypalPaymentMethod.Id, UserId = player1User.Id, IsPrimary = true, Isverified = true });
-            context.UserPaymentMethods.AddOrUpdate(new UserPaymentMethod() { PaymentMethodId = localBankPaymentMethod.Id, UserId = player1User.Id, IsPrimary = false });
-            context.UserPaymentMethods.AddOrUpdate(new UserPaymentMethod() { PaymentMethodId = paypalPaymentMethod.Id, UserId = player2User.Id, IsPrimary = true });
-            context.UserPaymentMethods.AddOrUpdate(new UserPaymentMethod() { PaymentMethodId = localBankPaymentMethod.Id, UserId = player2User.Id, IsPrimary = false });
+            context.UserPaymentMethod.AddOrUpdate(new UserPaymentMethod() { PaymentMethodId = paypalPaymentMethod.Id, UserId = player1User.Id, IsPrimary = true, Isverified = true });
+            context.UserPaymentMethod.AddOrUpdate(new UserPaymentMethod() { PaymentMethodId = localBankPaymentMethod.Id, UserId = player1User.Id, IsPrimary = false });
+            context.UserPaymentMethod.AddOrUpdate(new UserPaymentMethod() { PaymentMethodId = paypalPaymentMethod.Id, UserId = player2User.Id, IsPrimary = true });
+            context.UserPaymentMethod.AddOrUpdate(new UserPaymentMethod() { PaymentMethodId = localBankPaymentMethod.Id, UserId = player2User.Id, IsPrimary = false });
 
         }
     }

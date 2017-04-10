@@ -9,5 +9,7 @@ namespace User.Web.Models
     {
         public int Points { get; set; }
         public int Amount { get; set; }
+
+        public string PaymentId { get; set; }
     }
 }

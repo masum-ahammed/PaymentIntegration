@@ -218,7 +218,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PaymentMethod.cs" />
     <Compile Include="Models\PaymentTransaction.cs" />
-    <Compile Include="Models\UserPoint.cs" />
+    <Compile Include="Models\UserGameInfo.cs" />
     <Compile Include="Models\UserPaymentMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

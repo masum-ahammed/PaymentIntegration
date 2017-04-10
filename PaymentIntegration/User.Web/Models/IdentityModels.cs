@@ -16,7 +16,7 @@ namespace User.Web.Models
             // Add custom user claims here
             return userIdentity;
         }
-
+       
 
     }
 
@@ -27,8 +27,11 @@ namespace User.Web.Models
         {
         }
 
-        public DbSet<PaymentMethod> PaymentMethods { get; set; }
-        public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
+        public DbSet<PaymentMethod> PaymentMethod { get; set; }
+        public DbSet<UserPaymentMethod> UserPaymentMethod { get; set; }
+     
+        public DbSet<PaymentTransaction> PaymentTransaction { get; set; }
+        public DbSet<UserGameInfo> UserGameInfo { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

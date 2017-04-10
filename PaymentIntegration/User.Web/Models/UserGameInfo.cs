@@ -5,11 +5,12 @@ using System.Web;
 
 namespace User.Web.Models
 {
-    public class UserPoint
+    public class UserGameInfo
     {
         public int Id { get; set; }
         public string UserId { get; set; }
+     
+        public bool IsEnrolledInGame { get; set; }
         public int Point { get; set; }
-       
     }
 }

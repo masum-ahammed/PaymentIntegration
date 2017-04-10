@@ -10,7 +10,7 @@ namespace User.PaymentIntegration
 {
     public class PaypalPaymentGateway
     {
-        public Payment CreatePayment()
+        public Payment CreatePayment(int paymentAmount)
         {
            var apiContext =  PaypalConfiguration.GetAPIContext();
             //similar to credit card create itemlist and add item objects to it
@@ -18,9 +18,9 @@ namespace User.PaymentIntegration
 
             itemList.items.Add(new Item()
             {
-                name = "Item Name",
+                name = "Game Point",
                 currency = "USD",
-                price = "5",
+                price = "1",
                 quantity = "1",
                 sku = "sku"
             });
@@ -37,16 +37,16 @@ namespace User.PaymentIntegration
             // similar as we did for credit card, do here and create details object
             var details = new Details()
             {
-                tax = "1",
-                shipping = "1",
-                subtotal = "5"
+                tax = "0",
+                shipping = "0",
+                subtotal = paymentAmount.ToString()
             };
 
             // similar as we did for credit card, do here and create amount object
             var amount = new Amount()
             {
                 currency = "USD",
-                total = "7", // Total must be equal to sum of shipping, tax and subtotal.
+                total = paymentAmount.ToString(), // Total must be equal to sum of shipping, tax and subtotal.
                 details = details
             };
 
@@ -54,7 +54,7 @@ namespace User.PaymentIntegration
 
             transactionList.Add(new Transaction()
             {
-                description = "Transaction description.",
+                description = "Purchasing GamePoint",
                 invoice_number = "your invoice number",
                 amount = amount,
                 item_list = itemList

@@ -11,6 +11,7 @@ namespace User.Web.Models
         public string UserId { get; set; }
         public int PaymentMethod { get; set; }
         public int Amount { get; set; }
+        public string TranscationId { get; set; }
         public DateTime DateTime { get; set; }
     }
 }
