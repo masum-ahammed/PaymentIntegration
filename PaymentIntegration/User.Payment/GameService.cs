@@ -1,4 +1,5 @@
 ﻿using Data.Model;
+using DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,47 +10,25 @@ namespace Services
 {
     public class GameService
     {
+        IGameDataAccess _GameDataAccess;
+
+        public GameService()
+        {
+            _GameDataAccess = new GameDataAccess();
+        }
         public int SaveUserPoint(string userId, int points)
         {
-            using (DataDbContext dbContext = new DataDbContext())
-            {
-                var userGameInfo = dbContext.UserGameInfos.Where(x => x.UserId == userId).SingleOrDefault();
-                if (userGameInfo == null)
-                {
-                    dbContext.UserGameInfos.Add(new UserGameInfo() { IsEnrolledInGame = false, UserId = userId, Point = points });
-                }
-                else
-                {
-                    userGameInfo.Point = points;
-                }
-               return  dbContext.SaveChanges();
-            }
+            return _GameDataAccess.SaveUserPoint(userId, points);
         }
 
         public UserGameInfo GetGameInfoByUser(string userId)
         {
-            using (DataDbContext dbContext = new DataDbContext())
-            {
-                UserGameInfo gameInfo = dbContext.UserGameInfos.SingleOrDefault(x => x.UserId == userId);
-                if(gameInfo == null)
-                {
-                    gameInfo = new UserGameInfo();
-                }
-                return gameInfo;
-            }
+            return _GameDataAccess.GetGameInfoByUser(userId);
         }
 
         public int EntollIntoGame(string userId)
         {
-            using (DataDbContext dbContext = new DataDbContext())
-            {
-                UserGameInfo gameInfo = dbContext.UserGameInfos.SingleOrDefault(x => x.UserId == userId);
-                if (gameInfo != null)
-                {
-                    gameInfo.IsEnrolledInGame = true;
-                }
-                return dbContext.SaveChanges();
-            }
+            return _GameDataAccess.EntollIntoGame(userId);
         }
     }
 }

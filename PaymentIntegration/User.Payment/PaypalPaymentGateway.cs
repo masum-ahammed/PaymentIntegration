@@ -10,8 +10,9 @@ namespace User.PaymentIntegration
 {
     public class PaypalPaymentGateway
     {
-        public Payment CreatePayment(int paymentAmount)
+        public Payment CreatePayment(decimal paymentAmount)
         {
+            
            var apiContext =  PaypalConfiguration.GetAPIContext();
             //similar to credit card create itemlist and add item objects to it
             var itemList = new ItemList() { items = new List<Item>() };

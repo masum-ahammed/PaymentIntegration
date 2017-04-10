@@ -1,4 +1,5 @@
 ﻿using Data.Model;
+using DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,14 @@ namespace Services
 {
     public class UserService
     {
+        IUserDataAccess _UserDataAccess;
+        public UserService()
+        {
+            _UserDataAccess = new UserDataAccess();
+        }
         public List<UserPaymentMethod> GetPaymentMethodsByUser(string userId)
         {
-            using (DataDbContext dbContext = new DataDbContext())
-            {
-              return   dbContext.UserPaymentMethods
-                    .Include("PaymentMethod")
-                    .Where(x => x.UserId == userId)
-                    .ToList();
-            }
+           return  _UserDataAccess.GetPaymentMethodsByUser(userId);
         }
     }
 }

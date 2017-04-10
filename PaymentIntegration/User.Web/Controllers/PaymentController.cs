@@ -38,7 +38,9 @@ namespace User.Web.Controllers
         {
             try
             {
-                var createdPayment = _PaymentService.MakePaypalPayment(model.Amount);
+                model.Amount = decimal.Round(_PaymentService.AddProcessingFee(User.Identity.GetUserId(),model.Amount),2);
+
+                var createdPayment = _PaymentService.MakePayment( model.Amount);
 
                 var links = createdPayment.links.GetEnumerator();
                 string paypalRedirectUrl = null;
@@ -74,7 +76,7 @@ namespace User.Web.Controllers
             }
             string payerId = Request.Params["PayerID"];
             BuyPointViewModel paymentInfo = Session["PaymentInfo"] as BuyPointViewModel;
-            _PaymentService.ExecutePaypalPayment(payerId, paymentInfo.PaymentId);
+            _PaymentService.ExecutePayment(payerId, paymentInfo.PaymentId);
             _GameServices.SaveUserPoint(User.Identity.GetUserId(), paymentInfo.Points);
              _PaymentService.SavePaymentTransaction(User.Identity.GetUserId(), PaymentMethodType.PayPal, payerId, paymentInfo.Amount);
             return  RedirectToAction("Player", "Home", new { id = User.Identity.GetUserId() });
