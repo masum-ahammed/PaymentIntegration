@@ -25,5 +25,18 @@ namespace Services
                return  dbContext.SaveChanges();
             }
         }
+
+        public UserGameInfo GetGameInfoByUser(string userId)
+        {
+            using (DataDbContext dbContext = new DataDbContext())
+            {
+                UserGameInfo gameInfo = dbContext.UserGameInfos.SingleOrDefault(x => x.UserId == userId);
+                if(gameInfo == null)
+                {
+                    gameInfo = new UserGameInfo();
+                }
+                return gameInfo;
+            }
+        }
     }
 }

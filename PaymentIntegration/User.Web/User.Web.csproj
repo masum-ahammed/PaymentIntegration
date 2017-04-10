@@ -215,6 +215,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BuyPointViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PaymentMethodViewModel.cs" />
+    <Compile Include="Models\PlayerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

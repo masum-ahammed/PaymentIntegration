@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserService.cs" />
     <Compile Include="GameService.cs" />
     <Compile Include="IPaymentGateway.cs" />
     <Compile Include="PaymentService.cs" />
