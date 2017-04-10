@@ -3,3 +3,10 @@
 ################################################################################
 
 /PaymentIntegration/packages
+/PaymentIntegration/User.Web/App_Data
+/PaymentIntegration/.vs/PaymentIntegration/v14
+/PaymentIntegration/.vs/config
+/PaymentIntegration/User.Web/bin
+/PaymentIntegration/User.Web/obj/Debug
+/PaymentIntegration/User.Payment/bin/Debug
+/PaymentIntegration/User.Payment/obj/Debug
