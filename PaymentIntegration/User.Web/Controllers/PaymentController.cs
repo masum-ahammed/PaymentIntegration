@@ -32,17 +32,13 @@ namespace User.Web.Controllers
         public ActionResult ReceivePayment(BuyPointViewModel model)
         {
             return ProcessReceivePayment(model);
-
         }
 
         private ActionResult ProcessReceivePayment(BuyPointViewModel model)
         {
-            PaypalPaymentGateway paypalGatway = new PaypalPaymentGateway();
-
-
             try
             {
-                var createdPayment = paypalGatway.CreatePayment(model.Amount);
+                var createdPayment = _PaymentService.MakePaypalPayment(model.Amount);
 
                 var links = createdPayment.links.GetEnumerator();
                 string paypalRedirectUrl = null;
@@ -76,26 +72,10 @@ namespace User.Web.Controllers
             {
                 return RedirectToAction("Player", "Home", new { id = User.Identity.GetUserId() });
             }
-            PaypalPaymentGateway paypalGatway = new PaypalPaymentGateway();
             string payerId = Request.Params["PayerID"];
             BuyPointViewModel paymentInfo = Session["PaymentInfo"] as BuyPointViewModel;
-            try
-            {
-                var executedPayment = paypalGatway.ExecutePayment(payerId, paymentInfo.PaymentId);
-                if (executedPayment.state.ToLower() != "approved")
-                {
-                    throw new InvalidOperationException("Paypal payment faild.");
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-           
-
-             _GameServices.SaveUserPoint(User.Identity.GetUserId(), paymentInfo.Points);
+            _PaymentService.ExecutePaypalPayment(payerId, paymentInfo.PaymentId);
+            _GameServices.SaveUserPoint(User.Identity.GetUserId(), paymentInfo.Points);
              _PaymentService.SavePaymentTransaction(User.Identity.GetUserId(), PaymentMethodType.PayPal, payerId, paymentInfo.Amount);
             return  RedirectToAction("Player", "Home", new { id = User.Identity.GetUserId() });
         }

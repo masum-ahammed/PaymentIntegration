@@ -24,8 +24,8 @@ namespace User.PaymentIntegration
             var config = GetConfig();
             ClientId = config["clientId"];
             ClientSecret = config["clientSecret"];
-            ReturnUrl = Setting<string>("returnUrl");  
-            CancelUrl = Setting<string>("cancelUrl"); 
+            ReturnUrl = config["returnUrl"];  
+            CancelUrl = config["cancelUrl"]; 
         }
 
         // getting properties from the web.config

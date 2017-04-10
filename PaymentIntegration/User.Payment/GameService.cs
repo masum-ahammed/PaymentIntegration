@@ -38,5 +38,18 @@ namespace Services
                 return gameInfo;
             }
         }
+
+        public int EntollIntoGame(string userId)
+        {
+            using (DataDbContext dbContext = new DataDbContext())
+            {
+                UserGameInfo gameInfo = dbContext.UserGameInfos.SingleOrDefault(x => x.UserId == userId);
+                if (gameInfo != null)
+                {
+                    gameInfo.IsEnrolledInGame = true;
+                }
+                return dbContext.SaveChanges();
+            }
+        }
     }
 }

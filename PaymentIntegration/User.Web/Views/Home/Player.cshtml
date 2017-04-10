@@ -4,33 +4,23 @@
     ViewBag.Title = "Player";
 }
 
-<h2>Player</h2>
 
 <div class="row">
 
     <!-- Blog Entries Column -->
-    <div class="col-md-8">
+    <div class="col-md-8" style="vertical-align:middle;float: none;display: inline-block;">
 
-        <h1 class="page-header">
-            Page Heading
-            <small>Secondary Text</small>
-        </h1>
+        
 
-        <!-- First Blog Post -->
-        <h2>
-            <a href="#">Blog Post Title</a>
-        </h2>
-        <p class="lead">
-            by <a href="index.php">Start Bootstrap</a>
-        </p>
-        <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-        <hr>
-        <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-        <hr>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-        <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+        @if (!Model.IsEnrolledInGame)
+        {
+            <a class="btn btn-success btn-lg" href="/Home/EnrollIntoGame/@Model.UserId"> Enroll into Game</a>
+        }
+        else
+        {
+            <label class="label label-success"> Start New Game. You have Enrolled.</label>
+        }
 
-        <hr>
 
 
 
@@ -75,6 +65,7 @@
         <div class="well">
             <h4>Points</h4>
             <p>You have <strong>@Model.Points</strong> points</p>
+            <p>Total spent: $ <strong>@Model.TotalSpent</strong> (1.75% processing fee applicable after enrollment)</p>
             <a class="btn btn-primary" href="/Payment/BuyPoint">Buy More Points <span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
 

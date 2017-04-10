@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using User.PaymentIntegration;
 using User.Web.Models;
 
 namespace User.Web.Controllers
@@ -13,10 +14,12 @@ namespace User.Web.Controllers
     {
         UserService _UserService;
         GameService _GameService;
+        PaymentService _PaymentService;
         public HomeController()
         {
             _UserService = new UserService();
             _GameService = new GameService();
+            _PaymentService = new PaymentService();
         }
         public ActionResult Index()
         {
@@ -33,7 +36,8 @@ namespace User.Web.Controllers
             List<UserPaymentMethod> userPaymentMethods = _UserService.GetPaymentMethodsByUser(userId);
             UserGameInfo gameInfo = _GameService.GetGameInfoByUser(userId);
             List<PaymentMethodViewModel> paymentMethodViewModels = userPaymentMethods.ConvertAll(x => new PaymentMethodViewModel(x));
-            PlayerViewModel viewModel = new PlayerViewModel(paymentMethodViewModels, gameInfo);
+            decimal totalSpent = _PaymentService.GetTotalSpentByUser(userId);
+            PlayerViewModel viewModel = new PlayerViewModel(paymentMethodViewModels, gameInfo, totalSpent);
             return View(viewModel);
         }
         public ActionResult About()
@@ -48,6 +52,12 @@ namespace User.Web.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public ActionResult EnrollIntoGame(string id)
+        {
+            _GameService.EntollIntoGame(id);
+
+            return RedirectToAction("Player", "Home", new { id = id });
         }
     }
 }
