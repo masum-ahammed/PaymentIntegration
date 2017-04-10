@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,23 @@ namespace User.PaymentIntegration
 
         }
        
-        public void SaveUserPointAndPaymentTransaction(string v, int points, int amount)
+        public int SavePaymentTransaction(string userId, PaymentMethodType paymentMethod, string paymentId, decimal amount)
         {
-            throw new NotImplementedException();
+            using (DataDbContext dbContext = new DataDbContext())
+            {
+                PaymentTransaction paymentTransaction = new PaymentTransaction();
+                paymentTransaction.PaymentMethod = paymentMethod;
+                paymentTransaction.PaymentId = paymentId;
+                paymentTransaction.UserId = userId;
+                paymentTransaction.Amount = amount;
+                paymentTransaction.DateTime = DateTime.Now;
+
+                dbContext.PaymentTransactions.Add(paymentTransaction);
+                
+               return dbContext.SaveChanges();
+            }
         }
+
+        
     }
 }

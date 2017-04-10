@@ -9,7 +9,7 @@ namespace User.Web.Migrations
     using Models;
     using Data.Model;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Data.Model.IdentityDbContext>
     {
         public Configuration()
         {
@@ -17,7 +17,7 @@ namespace User.Web.Migrations
             ContextKey = "User.Web.Models.ApplicationDbContext";
         }
 
-        ApplicationUser AddAdminUserAndRole(ApplicationDbContext context)
+        ApplicationUser AddAdminUserAndRole(Data.Model.IdentityDbContext context)
         {
             IdentityResult ir;
             var rm = new RoleManager<IdentityRole>
@@ -34,7 +34,7 @@ namespace User.Web.Migrations
             ir = um.AddToRole(adminUser.Id, "Admin");
             return adminUser;
         }
-        ApplicationUser AddPlayerUserAndRole(ApplicationDbContext context, string player)
+        ApplicationUser AddPlayerUserAndRole(Data.Model.IdentityDbContext context, string player)
         {
             IdentityResult ir;
             var rm = new RoleManager<IdentityRole>
@@ -51,7 +51,7 @@ namespace User.Web.Migrations
             ir = um.AddToRole(playerUser.Id, "Player");
             return playerUser;
         }
-        protected override void Seed(ApplicationDbContext context)
+        protected override void Seed(Data.Model.IdentityDbContext context)
         {
             var paypalPaymentMethod = new PaymentMethod() { Name = "PayPal" };
             var localBankPaymentMethod = new PaymentMethod() { Name = "Local Bank" };

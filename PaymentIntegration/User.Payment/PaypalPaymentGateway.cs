@@ -20,7 +20,7 @@ namespace User.PaymentIntegration
             {
                 name = "Game Point",
                 currency = "USD",
-                price = "1",
+                price = paymentAmount.ToString(),
                 quantity = "1",
                 sku = "sku"
             });
@@ -55,7 +55,7 @@ namespace User.PaymentIntegration
             transactionList.Add(new Transaction()
             {
                 description = "Purchasing GamePoint",
-                invoice_number = "your invoice number",
+                invoice_number = Guid.NewGuid().ToString(),
                 amount = amount,
                 item_list = itemList
             });

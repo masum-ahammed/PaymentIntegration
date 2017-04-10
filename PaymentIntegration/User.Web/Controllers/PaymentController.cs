@@ -7,15 +7,20 @@ using System.Web.Mvc;
 using User.PaymentIntegration;
 using User.Web.Models;
 using Microsoft.AspNet.Identity;
+using Data.Model;
+using Services;
+using System.Threading.Tasks;
 
 namespace User.Web.Controllers
 {
     public class PaymentController : Controller
     {
         PaymentService _PaymentService;
+        GameService _GameServices;
         public PaymentController()
         {
             _PaymentService = new PaymentService();
+            _GameServices = new GameService();
         }
         // GET: Paypal
         public ActionResult BuyPoint()
@@ -74,15 +79,25 @@ namespace User.Web.Controllers
             PaypalPaymentGateway paypalGatway = new PaypalPaymentGateway();
             string payerId = Request.Params["PayerID"];
             BuyPointViewModel paymentInfo = Session["PaymentInfo"] as BuyPointViewModel;
-            var executedPayment = paypalGatway.ExecutePayment(payerId, paymentInfo.PaymentId);
-
-            if (executedPayment.state.ToLower() != "approved")
+            try
             {
-                throw new InvalidOperationException("Paypal payment faild.");
+                var executedPayment = paypalGatway.ExecutePayment(payerId, paymentInfo.PaymentId);
+                if (executedPayment.state.ToLower() != "approved")
+                {
+                    throw new InvalidOperationException("Paypal payment faild.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
 
-            _PaymentService.SaveUserPointAndPaymentTransaction(User.Identity.GetUserId(), paymentInfo.Points, paymentInfo.Amount);
-            return RedirectToAction("Player", "Home", new { id = User.Identity.GetUserId() });
+           
+
+             _GameServices.SaveUserPoint(User.Identity.GetUserId(), paymentInfo.Points);
+             _PaymentService.SavePaymentTransaction(User.Identity.GetUserId(), PaymentMethodType.PayPal, payerId, paymentInfo.Amount);
+            return  RedirectToAction("Player", "Home", new { id = User.Identity.GetUserId() });
         }
     }
 }

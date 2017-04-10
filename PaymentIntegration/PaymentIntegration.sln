@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Web", "User.Web\User.Web.csproj", "{11C5C52F-3D2C-4323-B52D-513A28865107}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Payment", "User.Payment\User.Payment.csproj", "{77CDBC10-5BEC-4415-952A-B9C042D02BA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "User.Payment\Services.csproj", "{77CDBC10-5BEC-4415-952A-B9C042D02BA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Model", "Data.Model\Data.Model.csproj", "{C56C9625-D035-4834-93EC-55D67CE46FD6}"
 EndProject

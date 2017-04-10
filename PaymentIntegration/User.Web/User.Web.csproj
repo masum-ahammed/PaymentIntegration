@@ -296,9 +296,9 @@
       <Project>{c56c9625-d035-4834-93ec-55d67ce46fd6}</Project>
       <Name>Data.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\User.Payment\User.Payment.csproj">
+    <ProjectReference Include="..\User.Payment\Services.csproj">
       <Project>{77cdbc10-5bec-4415-952a-b9c042d02ba6}</Project>
-      <Name>User.Payment</Name>
+      <Name>Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
