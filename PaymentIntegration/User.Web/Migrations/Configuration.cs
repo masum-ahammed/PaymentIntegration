@@ -44,7 +44,8 @@ namespace User.Web.Migrations
                 new UserStore<ApplicationUser>(context));
             var playerUser = new ApplicationUser()
             {
-                UserName = string.Format("{0}@xyz.com",player)
+                UserName = string.Format("{0}.game@gmail.com", player),
+                Email = string.Format("{0}.game@gmail.com",player)
             };
             ir = um.Create(playerUser, "Player@123");
            

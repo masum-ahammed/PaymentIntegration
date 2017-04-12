@@ -80,5 +80,40 @@ namespace User.PaymentIntegration
             var payment = new Payment() { id = paymentId };
             return payment.Execute(apiContext, paymentExecution);
         }
+
+        public PayoutBatchHeader SendPayment(string reciverEmail, decimal amount, string note)
+        {
+            var apiContext = PaypalConfiguration.GetAPIContext();
+            var payout = new Payout
+            {
+                sender_batch_header = new PayoutSenderBatchHeader
+                {
+                    sender_batch_id = "batch_" + System.Guid.NewGuid().ToString().Substring(0, 8),
+                    email_subject = "You have redeem points payment"
+                },
+                
+                items = new List<PayoutItem>
+                {
+                    new PayoutItem
+                    {
+                        recipient_type = PayoutRecipientType.EMAIL,
+                        amount = new Currency
+                        {
+                            value = decimal.Round(amount,2).ToString(),
+                            currency = "USD"
+                        },
+                        receiver = reciverEmail,
+                        note = note,
+                        sender_item_id = "item_1"
+                    }
+                 
+                    
+                }
+            };
+
+            PayoutBatch createdPayout = payout.Create(apiContext, false);
+            return createdPayout.batch_header;
+
+        }
     }
 }

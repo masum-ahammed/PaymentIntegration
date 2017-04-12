@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Data.Model;
 using Services;
 using System.Threading.Tasks;
+using System.Web.Security;
 
 namespace User.Web.Controllers
 {
@@ -28,10 +29,23 @@ namespace User.Web.Controllers
             return View();
         }
 
+        public ActionResult RedeemPoint()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult ReceivePayment(BuyPointViewModel model)
         {
             return ProcessReceivePayment(model);
+        }
+
+        [HttpPost]
+        public ActionResult SendPayment(RedeemPointViewModel model)
+        {
+            string userEmail = User.Identity.Name;
+            _PaymentService.SendPayment(userEmail, model.Points, User.Identity.GetUserId());
+            return RedirectToAction("Player", "Home", new { id = User.Identity.GetUserId() });
         }
 
         private ActionResult ProcessReceivePayment(BuyPointViewModel model)
@@ -77,8 +91,10 @@ namespace User.Web.Controllers
             string payerId = Request.Params["PayerID"];
             BuyPointViewModel paymentInfo = Session["PaymentInfo"] as BuyPointViewModel;
             _PaymentService.ExecutePayment(payerId, paymentInfo.PaymentId);
-            _GameServices.SaveUserPoint(User.Identity.GetUserId(), paymentInfo.Points);
-             _PaymentService.SavePaymentTransaction(User.Identity.GetUserId(), PaymentMethodType.PayPal, payerId, paymentInfo.Amount);
+            UserGameInfo gameInfo = _GameServices.GetGameInfoByUser(User.Identity.GetUserId());
+
+            _GameServices.SaveUserPoint(User.Identity.GetUserId(), gameInfo.Point + paymentInfo.Points);
+             _PaymentService.SavePaymentTransaction(User.Identity.GetUserId(), PaymentMethodType.PayPal, payerId, paymentInfo.Amount, PaymentType.Deposit);
             return  RedirectToAction("Player", "Home", new { id = User.Identity.GetUserId() });
         }
     }

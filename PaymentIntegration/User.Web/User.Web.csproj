@@ -213,6 +213,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\RedeemPointViewModel.cs" />
     <Compile Include="Models\BuyPointViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PaymentMethodViewModel.cs" />
@@ -284,6 +285,7 @@
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Player.cshtml" />
     <Content Include="Views\Payment\BuyPoint.cshtml" />
+    <Content Include="Views\Payment\RedeemPoint.cshtml" />
     <None Include="Web.config.azure">
       <SubType>Designer</SubType>
     </None>

@@ -63,6 +63,7 @@
     <Compile Include="PaymentMethod.cs" />
     <Compile Include="PaymentMethodType.cs" />
     <Compile Include="PaymentTransaction.cs" />
+    <Compile Include="PaymentType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserGameInfo.cs" />
     <Compile Include="UserPaymentMethod.cs" />

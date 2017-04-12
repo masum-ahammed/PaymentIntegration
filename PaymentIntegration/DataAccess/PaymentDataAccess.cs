@@ -13,7 +13,10 @@ namespace DataAccess
         {
             using (DataDbContext dbContext = new DataDbContext())
             {
-                return dbContext.PaymentTransactions.Where(x => x.UserId == userId).Sum(x => x.Amount);
+                if (dbContext.PaymentTransactions.Where(x => x.UserId == userId).Any()) {
+                  return   dbContext.PaymentTransactions.Where(x => x.UserId == userId && x.PaymentType == PaymentType.Deposit).Sum(x => x.Amount);
+                }
+                return 0;
             }
         }
 

@@ -12,6 +12,7 @@ namespace Data.Model
         public PaymentMethodType PaymentMethod { get; set; }
         public decimal Amount { get; set; }
         public string PaymentId { get; set; }
+        public PaymentType PaymentType { get; set; }
         public DateTime DateTime { get; set; }
     }
 }

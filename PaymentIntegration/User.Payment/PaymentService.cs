@@ -36,6 +36,20 @@ namespace User.PaymentIntegration
             return amount;
         }
 
+        public bool SendPayment(string userEmail, int points, string userId)
+        {
+            PaypalPaymentGateway paypalGatway = new PaypalPaymentGateway();
+            string paymentNote = string.Format("You have redeemed {0} points", points);
+            decimal amount = (decimal)(points * 1.0);
+            PayoutBatchHeader payoutBatchHeader = paypalGatway.SendPayment(userEmail, amount, paymentNote);
+            SavePaymentTransaction(userId, PaymentMethodType.PayPal, payoutBatchHeader.payout_batch_id, amount, PaymentType.Redeem);
+            UserGameInfo gameInfo = _GameDataAccess.GetGameInfoByUser(userId);
+            int point = gameInfo.Point - points;
+            _GameDataAccess.SaveUserPoint(userId, point);
+
+            return true;
+        }
+
         public Payment ExecutePayment(string payerId, string paymentId)
         {
             try
@@ -55,7 +69,7 @@ namespace User.PaymentIntegration
             }
             
         }
-        public int SavePaymentTransaction(string userId, PaymentMethodType paymentMethod, string paymentId, decimal amount)
+        public int SavePaymentTransaction(string userId, PaymentMethodType paymentMethod, string paymentId, decimal amount, PaymentType paymentType)
         {
             PaymentTransaction paymentTransaction = new PaymentTransaction();
             paymentTransaction.Amount = amount;
@@ -63,6 +77,7 @@ namespace User.PaymentIntegration
             paymentTransaction.PaymentId = paymentId;
             paymentTransaction.PaymentMethod = paymentMethod;
             paymentTransaction.UserId = userId;
+            paymentTransaction.PaymentType = paymentType;
             return _PaymentDataAccess.SavePaymentTransaction(paymentTransaction);
         }
 
