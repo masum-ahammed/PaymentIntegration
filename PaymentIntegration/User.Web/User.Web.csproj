@@ -232,6 +232,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\payment-integration - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\payment-integration - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -244,7 +246,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -280,6 +284,15 @@
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Player.cshtml" />
     <Content Include="Views\Payment\BuyPoint.cshtml" />
+    <None Include="Web.config.azure">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.config.Debug.azure">
+      <DependentUpon>Web.config.azure</DependentUpon>
+    </None>
+    <None Include="Web.config.Release.azure">
+      <DependentUpon>Web.config.azure</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

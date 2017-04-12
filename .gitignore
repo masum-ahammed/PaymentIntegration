@@ -14,3 +14,9 @@
 /PaymentIntegration/Data.Model
 /PaymentIntegration/DataAccess/bin/Debug
 /PaymentIntegration/DataAccess/obj/Debug
+/PaymentIntegration/DataAccess/bin/Release
+/PaymentIntegration/DataAccess/obj/Release
+/PaymentIntegration/User.Payment/bin/Release
+/PaymentIntegration/User.Payment/obj/Release
+/PaymentIntegration/User.Web/obj/Release/Package
+/PaymentIntegration/User.Web/obj/Release
