@@ -11,6 +11,7 @@ namespace DataAccess
     public interface IUserDataAccess
     {
         List<UserPaymentMethod> GetPaymentMethodsByUser(string userId);
-       
+        List<PaymentMethod> GetAllPaymentMethods();
+        Task SaveUserPaymentMethods(List<UserPaymentMethod> userPaymentMethods);
     }
 }

@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using User.Web.Models;
 using Data.Model;
+using Services;
+using System.Collections.Generic;
 
 namespace User.Web.Controllers
 {
@@ -150,21 +152,19 @@ namespace User.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            UserService userService = new UserService();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                   var roleResult =  await this.UserManager.AddToRoleAsync(user.Id, "Player");
+                    await userService.AddDefaultPaymentMethodsToUser(user.Id);
+                    await SignInManager.SignInAsync(user, isPersistent: true, rememberBrowser: false);
+                    if (User.IsInRole("Player"))
+                        return RedirectToAction("Player", "Home", new { id = user.Id });
+                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
