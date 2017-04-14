@@ -1,4 +1,5 @@
 ﻿using Data.Model;
+using Microsoft.AspNet.Identity;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,14 @@ namespace User.Web.Controllers
         }
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin"))
+                    return RedirectToAction("Admin", "Home", new { id = User.Identity.GetUserId() });
+                if (User.IsInRole("Player"))
+                    return RedirectToAction("Player", "Home", new { id = User.Identity.GetUserId() });
+            }
+
             return View();
         }
 

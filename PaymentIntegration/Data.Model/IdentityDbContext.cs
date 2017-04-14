@@ -20,6 +20,7 @@ namespace Data.Model
 
         public DbSet<PaymentTransaction> PaymentTransactions { get; set; }
         public DbSet<UserGameInfo> UserGameInfos { get; set; }
+       
         public static IdentityDbContext Create()
         {
             return new IdentityDbContext();

@@ -286,6 +286,8 @@
     <Content Include="Views\Home\Player.cshtml" />
     <Content Include="Views\Payment\BuyPoint.cshtml" />
     <Content Include="Views\Payment\RedeemPoint.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Account\Users.cshtml" />
     <None Include="Web.config.azure">
       <SubType>Designer</SubType>
     </None>
