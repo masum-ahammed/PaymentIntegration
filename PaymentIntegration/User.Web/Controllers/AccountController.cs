@@ -412,6 +412,13 @@ namespace User.Web.Controllers
             return View(UserManager.Users.ToList());
         }
 
+       
+        public ActionResult DeleteUser(string id)
+        {
+            UserManager.Delete(UserManager.FindById(id));
+            return View("Users",UserManager.Users.ToList());
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

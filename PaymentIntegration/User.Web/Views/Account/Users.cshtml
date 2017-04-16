@@ -38,7 +38,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
-       
+       <td>
+           <a href="/Account/DeleteUser/@item.Id" class="btn btn-danger">Delete</a>
+       </td>
     </tr>
 }
 
