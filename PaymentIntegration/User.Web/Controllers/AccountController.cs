@@ -79,6 +79,7 @@ namespace User.Web.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+           
             switch (result)
             {
                 case SignInStatus.Success:
@@ -162,7 +163,7 @@ namespace User.Web.Controllers
                    var roleResult =  await this.UserManager.AddToRoleAsync(user.Id, "Player");
                     await userService.AddDefaultPaymentMethodsToUser(user.Id);
                     await SignInManager.SignInAsync(user, isPersistent: true, rememberBrowser: false);
-                    if (User.IsInRole("Player"))
+                    if (UserManager.IsInRole(user.Id,"Player"))
                         return RedirectToAction("Player", "Home", new { id = user.Id });
                     //return RedirectToAction("Index", "Home");
                 }
@@ -330,7 +331,8 @@ namespace User.Web.Controllers
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: true);
+            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+           
             switch (result)
             {
                 case SignInStatus.Success:
@@ -393,7 +395,7 @@ namespace User.Web.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
 
         //
@@ -450,16 +452,18 @@ namespace User.Web.Controllers
             }
         }
 
-        private ActionResult RedirectToLandingPage(string returnUrl)
+        private  ActionResult RedirectToLandingPage(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
-            if(User.IsInRole("Admin"))
-                return RedirectToAction("Admin", "Home", new { id= User.Identity.GetUserId() });
-            if (User.IsInRole("Player"))
-                return RedirectToAction("Player", "Home", new { id = User.Identity.GetUserId() } );
+            string userId = SignInManager.AuthenticationManager.AuthenticationResponseGrant
+                                            .Identity.GetUserId();
+            if (UserManager.IsInRole(userId, "Admin"))
+                return RedirectToAction("Admin", "Home", new { id= userId });
+            if (UserManager.IsInRole(userId, "Player"))
+                return RedirectToAction("Player", "Home", new { id = userId } );
             throw new InvalidOperationException("Role not defined.");
         }
 

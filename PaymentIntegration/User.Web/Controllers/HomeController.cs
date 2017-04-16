@@ -1,5 +1,6 @@
 ﻿using Data.Model;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -16,19 +17,32 @@ namespace User.Web.Controllers
         UserService _UserService;
         GameService _GameService;
         PaymentService _PaymentService;
+        private ApplicationUserManager _userManager;
         public HomeController()
         {
             _UserService = new UserService();
             _GameService = new GameService();
             _PaymentService = new PaymentService();
         }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         public ActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (User.IsInRole("Admin"))
+                if (UserManager.IsInRole(User.Identity.GetUserId(),"Admin"))
                     return RedirectToAction("Admin", "Home", new { id = User.Identity.GetUserId() });
-                if (User.IsInRole("Player"))
+                if (UserManager.IsInRole(User.Identity.GetUserId(),"Player"))
                     return RedirectToAction("Player", "Home", new { id = User.Identity.GetUserId() });
             }
 
